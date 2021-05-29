@@ -20,6 +20,8 @@ To run the local server,
 
 The `prettier`, `stylelint`, and `eslint` libraries are used for formating and error checking. Install their corresponding vscode extensions to use with VSCode.
 
+Using the `.sample-env` as a reference, create a local `env` file with your API Key.
+
 ### Production
 
 To generate build files for production,

@@ -1,0 +1,8 @@
+{
+  "eslint.validate": ["javascript", "html"],
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "prettier.stylelintIntegration": true,
+  "editor.formatOnSave": true
+}

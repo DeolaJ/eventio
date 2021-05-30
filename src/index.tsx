@@ -1,12 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './app';
+import { Provider } from 'react-redux';
 import reportWebVitals from './reportWebVitals';
+
+import App from './app';
+import configureStore from './store';
+import { initialState } from './constants';
+import 'sanitize.css';
+import './index.css';
+
+// Create Redux store
+const store = configureStore(initialState);
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}>
+      <App />
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );

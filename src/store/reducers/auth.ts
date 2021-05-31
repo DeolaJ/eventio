@@ -13,7 +13,7 @@ import {
   LOGOUT_USER_SUCCESS,
 } from '../actions/types';
 
-export const defaultState = {
+export const defaultState: AuthState = {
   user: {
     id: '',
     firstName: '',

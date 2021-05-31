@@ -39,7 +39,11 @@ const signupUserStart = (payload: { isCreatingAccount: boolean }) => ({
   payload,
 });
 
-const signupUserSuccess = (payload: { isCreatingAccount: boolean; user: UserType }) => ({
+export const signupUserSuccess = (payload: {
+  isCreatingAccount: boolean;
+  user: UserType;
+  isAuthenticated: boolean;
+}): AnyAction => ({
   type: SIGNUP_USER_SUCCESS,
   payload,
 });
@@ -54,12 +58,13 @@ const loginUserStart = (payload: { isLoggingIn: boolean }) => ({
   payload,
 });
 
-const loginUserSuccess = (payload: {
+export const loginUserSuccess = (payload: {
   isLoggingIn: boolean;
   accessToken: string;
   refreshToken: string;
   user: UserType;
-}) => ({
+  isAuthenticated: boolean;
+}): AnyAction => ({
   type: LOGIN_USER_SUCCESS,
   payload,
 });
@@ -74,7 +79,13 @@ const logoutUserStart = (payload: { isLoggingOut: boolean }) => ({
   payload,
 });
 
-const logoutUserSuccess = (payload: { isLoggingOut: boolean }) => ({
+export const logoutUserSuccess = (payload: {
+  isLoggingOut: boolean;
+  isAuthenticated: boolean;
+  accessToken: string;
+  refreshToken: string;
+  user: UserType;
+}): AnyAction => ({
   type: LOGOUT_USER_SUCCESS,
   payload,
 });
@@ -131,6 +142,7 @@ export function doSignupUser(userDetails: UserDetailsType): ThunkAction<void, St
           signupUserSuccess({
             isCreatingAccount: false,
             user: response,
+            isAuthenticated: true,
           })
         );
         toast.dismiss('creatingAccount');
@@ -176,6 +188,7 @@ export function doLoginUser(loginDetails: LoginDetailsType): ThunkAction<void, S
             isLoggingIn: false,
             accessToken,
             refreshToken,
+            isAuthenticated: true,
           })
         );
 
@@ -198,7 +211,7 @@ export function doLoginUser(loginDetails: LoginDetailsType): ThunkAction<void, S
 }
 
 export function doLogoutUser(): ThunkAction<void, StateType, unknown, AnyAction> {
-  return (dispatch) => {
+  return async (dispatch) => {
     toast.success('Logging out...', {
       toastId: 'loggingOut',
       autoClose: false,
@@ -216,6 +229,17 @@ export function doLogoutUser(): ThunkAction<void, StateType, unknown, AnyAction>
         dispatch(
           logoutUserSuccess({
             isLoggingOut: false,
+            isAuthenticated: false,
+            refreshToken: '',
+            accessToken: '',
+            user: {
+              id: '',
+              firstName: '',
+              lastName: '',
+              email: '',
+              createdAt: '',
+              updatedAt: '',
+            },
           })
         );
         toast.dismiss('loggingOut');

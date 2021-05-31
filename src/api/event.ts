@@ -29,7 +29,7 @@ export async function updateEventAPI(
   const { title, description, startsAt, capacity } = eventDetails;
 
   return axiosClient({
-    method: 'put',
+    method: 'patch',
     url: `/events/${id}`,
     headers: {
       Authorization: accessToken,

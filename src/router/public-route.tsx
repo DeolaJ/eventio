@@ -12,7 +12,10 @@ const PublicRoute: FC<PublicRouteProps> = ({ component: Component, ...rest }) =>
   const isAuthenticated = useSelector(selectors.selectIsAuthenticated);
 
   return (
-    <Route render={(props) => (isAuthenticated === false ? <Component {...props} /> : <Redirect to="/" />)} {...rest} />
+    <Route
+      render={(props) => (isAuthenticated === false ? <Component {...props} /> : <Redirect to="/events" />)}
+      {...rest}
+    />
   );
 };
 

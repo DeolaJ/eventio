@@ -19,7 +19,7 @@ const fetchEventStart = (payload: { isFetchingEvent: boolean }) => ({
   payload,
 });
 
-const fetchEventSuccess = (payload: { isFetchingEvent: boolean; event: EventType }) => ({
+export const fetchEventSuccess = (payload: { isFetchingEvent: boolean; event: EventType }): AnyAction => ({
   type: FETCH_EVENT_SUCCESS,
   payload,
 });
@@ -34,7 +34,7 @@ const fetchAllEventsStart = (payload: { isFetchingEvents: boolean }) => ({
   payload,
 });
 
-const fetchAllEventsSuccess = (payload: { isFetchingEvents: boolean; events: EventType[] }) => ({
+export const fetchAllEventsSuccess = (payload: { isFetchingEvents: boolean; events: EventType[] }): AnyAction => ({
   type: FETCH_ALL_EVENTS_SUCCESS,
   payload,
 });

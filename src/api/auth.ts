@@ -9,7 +9,7 @@ export async function refreshTokenAPI(refreshToken: string): Promise<{ user: Use
       refreshToken,
     })
     .then(async (response: AxiosResponse) => {
-      const accessToken = response.headers['Authorization'] || '';
+      const accessToken = response.headers['authorization'] || '';
       const user = response.data;
 
       return {
@@ -43,8 +43,8 @@ export async function loginUserAPI(
       password,
     })
     .then(async (response: AxiosResponse) => {
-      const accessToken = response.headers['Authorization'] || '';
-      const refreshToken = response.headers['Refresh-Token'] || '';
+      const accessToken = response.headers['authorization'] || '';
+      const refreshToken = response.headers['refresh-Token'] || '';
       const user = response.data;
 
       return {

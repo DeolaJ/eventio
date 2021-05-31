@@ -25,7 +25,7 @@ const createEventStart = (payload: { isCreatingEvent: boolean }) => ({
   payload,
 });
 
-const createEventSuccess = (payload: { isCreatingEvent: boolean; event: EventType }) => ({
+export const createEventSuccess = (payload: { isCreatingEvent: boolean; event: EventType }): AnyAction => ({
   type: CREATE_EVENT_SUCCESS,
   payload,
 });
@@ -40,7 +40,7 @@ const updateEventStart = (payload: { isUpdatingEvent: boolean }) => ({
   payload,
 });
 
-const updateEventSuccess = (payload: { isUpdatingEvent: boolean; event: EventType }) => ({
+export const updateEventSuccess = (payload: { isUpdatingEvent: boolean; event: EventType }): AnyAction => ({
   type: UPDATE_EVENT_SUCCESS,
   payload,
 });
@@ -55,11 +55,11 @@ const setAttendeeStatusStart = (payload: { isUpdatingAttendeeStatus: boolean }) 
   payload,
 });
 
-const setAttendeeStatusSuccess = (payload: {
+export const setAttendeeStatusSuccess = (payload: {
   isUpdatingAttendeeStatus: boolean;
   eventId: string;
   event: EventType;
-}) => ({
+}): AnyAction => ({
   type: SET_ATTENDEE_STATUS_SUCCESS,
   payload,
 });
@@ -74,7 +74,7 @@ const deleteEventStart = (payload: { isDeletingEvent: boolean }) => ({
   payload,
 });
 
-const deleteEventSuccess = (payload: { isDeletingEvent: boolean; eventId: string }) => ({
+export const deleteEventSuccess = (payload: { isDeletingEvent: boolean; eventId: string }): AnyAction => ({
   type: DELETE_EVENT_SUCCESS,
   payload,
 });
@@ -85,6 +85,7 @@ const deleteEventFailure = (payload: { isDeletingEvent: boolean }) => ({
 });
 
 // Action Creators
+// TODO: Improve Error Reporting to show the correct errors in the notification banner
 export function doCreateEvent(eventDetails: EventDetailsType): ThunkAction<void, StateType, unknown, AnyAction> {
   return async (dispatch, getState) => {
     const { accessToken } = getState().auth;

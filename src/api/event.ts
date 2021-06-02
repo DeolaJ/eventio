@@ -2,9 +2,11 @@ import { AxiosResponse } from 'axios';
 
 import axiosClient from './apiClient';
 import { EventDetailsType, EventType } from '../types';
+import { getFromLocalStorage } from '../utils/helpers';
 
-export async function createEventAPI(eventDetails: EventDetailsType, accessToken: string): Promise<EventType> {
+export async function createEventAPI(eventDetails: EventDetailsType): Promise<EventType> {
   const { title, description, startsAt, capacity } = eventDetails;
+  const accessToken = getFromLocalStorage('accessToken');
 
   return axiosClient({
     method: 'post',
@@ -21,12 +23,9 @@ export async function createEventAPI(eventDetails: EventDetailsType, accessToken
   }).then((response: AxiosResponse) => response.data);
 }
 
-export async function updateEventAPI(
-  id: string,
-  eventDetails: EventDetailsType,
-  accessToken: string
-): Promise<EventType> {
+export async function updateEventAPI(id: string, eventDetails: EventDetailsType): Promise<EventType> {
   const { title, description, startsAt, capacity } = eventDetails;
+  const accessToken = getFromLocalStorage('accessToken');
 
   return axiosClient({
     method: 'patch',
@@ -43,7 +42,9 @@ export async function updateEventAPI(
   }).then((response: AxiosResponse) => response.data);
 }
 
-export async function setAttendeeStatusAPI(id: string, status: boolean, accessToken: string): Promise<EventType> {
+export async function setAttendeeStatusAPI(id: string, status: boolean): Promise<EventType> {
+  const accessToken = getFromLocalStorage('accessToken');
+
   return axiosClient({
     method: status ? 'post' : 'delete',
     url: `/events/${id}/attendees/me`,
@@ -53,7 +54,9 @@ export async function setAttendeeStatusAPI(id: string, status: boolean, accessTo
   }).then((response: AxiosResponse) => response.data);
 }
 
-export async function deleteEventAPI(id: string, accessToken: string): Promise<{ deleted: boolean }> {
+export async function deleteEventAPI(id: string): Promise<{ deleted: boolean }> {
+  const accessToken = getFromLocalStorage('accessToken');
+
   return axiosClient({
     method: 'delete',
     url: `/events/${id}`,

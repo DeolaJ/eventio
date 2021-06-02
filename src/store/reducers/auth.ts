@@ -22,8 +22,6 @@ export const defaultState: AuthState = {
     createdAt: '',
     updatedAt: '',
   },
-  accessToken: '',
-  refreshToken: '',
   isAuthenticated: false,
   isCreatingAccount: false,
   isLoggingIn: false,

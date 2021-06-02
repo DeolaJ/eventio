@@ -4,8 +4,6 @@
 
 export type AuthState = {
   user: UserType;
-  accessToken: string;
-  refreshToken: string;
   isAuthenticated: boolean;
   isCreatingAccount: boolean;
   isLoggingIn: boolean;
@@ -19,6 +17,7 @@ export type EventState = {
   isFetchingEvents: boolean;
   isCreatingEvent: boolean;
   isUpdatingEvent: boolean;
+  isEditingEvent: boolean;
   isUpdatingAttendeeStatus: boolean;
   isDeletingEvent: boolean;
 };
@@ -74,4 +73,15 @@ export type EventType = {
   attendees: UserType[];
   createdAt: string;
   updatedAt: string;
+};
+
+//==============================================================================
+// General Instances
+//==============================================================================
+
+export type EventTabValueProps = 'allEvents' | 'futureEvents' | 'pastEvents';
+
+export type EventTabsProps = {
+  text: string;
+  value: EventTabValueProps;
 };

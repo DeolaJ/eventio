@@ -32,6 +32,7 @@ describe('Event Action Reducers', () => {
       isFetchingEvents: false,
       isCreatingEvent: false,
       isUpdatingEvent: false,
+      isEditingEvent: false,
       isUpdatingAttendeeStatus: false,
       isDeletingEvent: false,
     });
@@ -124,6 +125,7 @@ describe('Event Action Reducers', () => {
       isFetchingEvents: false,
       isCreatingEvent: false,
       isUpdatingEvent: false,
+      isEditingEvent: false,
       isUpdatingAttendeeStatus: false,
       isDeletingEvent: false,
     });
@@ -193,6 +195,7 @@ describe('Event Action Reducers', () => {
           isFetchingEvents: false,
           isCreatingEvent: false,
           isUpdatingEvent: true,
+          isEditingEvent: false,
           isUpdatingAttendeeStatus: false,
           isDeletingEvent: false,
         },
@@ -288,6 +291,7 @@ describe('Event Action Reducers', () => {
       isFetchingEvents: false,
       isCreatingEvent: false,
       isUpdatingEvent: false,
+      isEditingEvent: false,
       isUpdatingAttendeeStatus: false,
       isDeletingEvent: false,
     });
@@ -339,6 +343,7 @@ describe('Event Action Reducers', () => {
           isFetchingEvents: false,
           isCreatingEvent: false,
           isUpdatingEvent: false,
+          isEditingEvent: false,
           isUpdatingAttendeeStatus: true,
           isDeletingEvent: false,
         },
@@ -435,6 +440,7 @@ describe('Event Action Reducers', () => {
       isFetchingEvents: false,
       isCreatingEvent: false,
       isUpdatingEvent: false,
+      isEditingEvent: false,
       isUpdatingAttendeeStatus: false,
       isDeletingEvent: false,
     });
@@ -504,6 +510,7 @@ describe('Event Action Reducers', () => {
           isFetchingEvents: false,
           isCreatingEvent: false,
           isUpdatingEvent: false,
+          isEditingEvent: false,
           isUpdatingAttendeeStatus: false,
           isDeletingEvent: true,
         },
@@ -536,6 +543,7 @@ describe('Event Action Reducers', () => {
       isFetchingEvents: false,
       isCreatingEvent: false,
       isUpdatingEvent: false,
+      isEditingEvent: false,
       isUpdatingAttendeeStatus: false,
       isDeletingEvent: false,
     });

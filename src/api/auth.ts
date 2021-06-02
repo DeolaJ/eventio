@@ -2,8 +2,9 @@ import { AxiosResponse } from 'axios';
 
 import axiosClient from './apiClient';
 import { UserDetailsType, LoginDetailsType, UserType } from '../types';
+import { storeStringInLocalStorage } from '../utils/helpers';
 
-export async function refreshTokenAPI(refreshToken: string): Promise<{ user: UserType; accessToken: string }> {
+export async function refreshTokenAPI(refreshToken: string): Promise<{ user: UserType }> {
   return axiosClient
     .post(`/auth/native`, {
       refreshToken,
@@ -12,9 +13,10 @@ export async function refreshTokenAPI(refreshToken: string): Promise<{ user: Use
       const accessToken = response.headers['authorization'] || '';
       const user = response.data;
 
+      storeStringInLocalStorage('accessToken', accessToken);
+
       return {
         user,
-        accessToken,
       };
     });
 }
@@ -32,9 +34,7 @@ export async function signupUserAPI(userDetails: UserDetailsType): Promise<UserT
     .then((response: AxiosResponse) => response.data);
 }
 
-export async function loginUserAPI(
-  loginDetails: LoginDetailsType
-): Promise<{ user: UserType; accessToken: string; refreshToken: string }> {
+export async function loginUserAPI(loginDetails: LoginDetailsType): Promise<{ user: UserType }> {
   const { email, password } = loginDetails;
 
   return axiosClient
@@ -44,13 +44,14 @@ export async function loginUserAPI(
     })
     .then(async (response: AxiosResponse) => {
       const accessToken = response.headers['authorization'] || '';
-      const refreshToken = response.headers['refresh-Token'] || '';
+      const refreshToken = response.headers['refresh-token'] || '';
       const user = response.data;
+
+      storeStringInLocalStorage('accessToken', accessToken);
+      storeStringInLocalStorage('refreshToken', refreshToken);
 
       return {
         user,
-        accessToken,
-        refreshToken,
       };
     });
 }

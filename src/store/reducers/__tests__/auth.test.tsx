@@ -12,8 +12,6 @@ describe('Auth Reducers', () => {
         createdAt: '',
         updatedAt: '',
       },
-      accessToken: '',
-      refreshToken: '',
       isAuthenticated: false,
       isCreatingAccount: false,
       isLoggingIn: false,
@@ -47,8 +45,6 @@ describe('Auth Reducers', () => {
         createdAt: '2016-12-08T10:46:33.901Z',
         updatedAt: '2016-12-08T10:46:33.901Z',
       },
-      accessToken: '',
-      refreshToken: '',
       isAuthenticated: true,
       isCreatingAccount: false,
       isLoggingIn: false,
@@ -70,8 +66,6 @@ describe('Auth Reducers', () => {
             createdAt: '2016-12-08T10:46:33.901Z',
             updatedAt: '2016-12-08T10:46:33.901Z',
           },
-          accessToken: 'eeeeee',
-          refreshToken: 'eeeeee',
           isAuthenticated: true,
         })
       )
@@ -84,8 +78,6 @@ describe('Auth Reducers', () => {
         createdAt: '2016-12-08T10:46:33.901Z',
         updatedAt: '2016-12-08T10:46:33.901Z',
       },
-      accessToken: 'eeeeee',
-      refreshToken: 'eeeeee',
       isAuthenticated: true,
       isCreatingAccount: false,
       isLoggingIn: false,
@@ -100,8 +92,6 @@ describe('Auth Reducers', () => {
         logoutUserSuccess({
           isLoggingOut: false,
           isAuthenticated: false,
-          accessToken: '',
-          refreshToken: '',
           user: {
             id: '',
             firstName: '',

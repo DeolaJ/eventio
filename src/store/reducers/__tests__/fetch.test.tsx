@@ -27,6 +27,7 @@ describe('Fetch Event Reducers', () => {
       isFetchingEvents: false,
       isCreatingEvent: false,
       isUpdatingEvent: false,
+      isEditingEvent: false,
       isUpdatingAttendeeStatus: false,
       isDeletingEvent: false,
     });
@@ -121,6 +122,7 @@ describe('Fetch Event Reducers', () => {
       isFetchingEvents: false,
       isCreatingEvent: false,
       isUpdatingEvent: false,
+      isEditingEvent: false,
       isUpdatingAttendeeStatus: false,
       isDeletingEvent: false,
     });
@@ -194,6 +196,7 @@ describe('Fetch Event Reducers', () => {
       isFetchingEvents: false,
       isCreatingEvent: false,
       isUpdatingEvent: false,
+      isEditingEvent: false,
       isUpdatingAttendeeStatus: false,
       isDeletingEvent: false,
     });

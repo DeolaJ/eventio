@@ -9,6 +9,7 @@ import {
   FETCH_EVENT_START,
   FETCH_EVENT_FAILURE,
   FETCH_EVENT_SUCCESS,
+  SET_EDITING_EVENT,
   CREATE_EVENT_START,
   CREATE_EVENT_FAILURE,
   CREATE_EVENT_SUCCESS,
@@ -47,6 +48,7 @@ export const defaultState: EventState = {
   isFetchingEvents: false,
   isCreatingEvent: false,
   isUpdatingEvent: false,
+  isEditingEvent: false,
   isUpdatingAttendeeStatus: false,
   isDeletingEvent: false,
 };
@@ -60,6 +62,7 @@ export default function eventReducer(state = defaultState, action: AnyAction): E
     case FETCH_ALL_EVENTS_SUCCESS:
     case FETCH_EVENT_START:
     case FETCH_EVENT_FAILURE:
+    case SET_EDITING_EVENT:
     case CREATE_EVENT_START:
     case CREATE_EVENT_FAILURE:
     case UPDATE_EVENT_START:

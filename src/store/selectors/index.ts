@@ -1,4 +1,10 @@
-import { selectIsAuthenticated, selectIsCreatingAccount, selectIsLoggingIn, selectIsLoggingOut } from './auth';
+import {
+  selectIsAuthenticated,
+  selectIsCreatingAccount,
+  selectIsLoggingIn,
+  selectIsLoggingOut,
+  selectUser,
+} from './auth';
 import {
   selectIsFetchingEvents,
   selectIsFetchingEvent,
@@ -8,6 +14,9 @@ import {
   selectIsDeletingEvent,
   selectAllEvents,
   selectActiveEvent,
+  selectEvents,
+  selectEventDetails,
+  selectIsEditingEvent,
 } from './event';
 
 export default {
@@ -15,6 +24,7 @@ export default {
   selectIsCreatingAccount,
   selectIsLoggingIn,
   selectIsLoggingOut,
+  selectUser,
   selectIsFetchingEvents,
   selectIsFetchingEvent,
   selectIsCreatingEvent,
@@ -23,4 +33,7 @@ export default {
   selectIsDeletingEvent,
   selectAllEvents,
   selectActiveEvent,
+  selectEvents,
+  selectEventDetails,
+  selectIsEditingEvent,
 };

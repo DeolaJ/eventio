@@ -6,6 +6,7 @@ import { ThunkAction } from 'redux-thunk';
 import utils from '../../utils';
 import { EventType, EventDetailsType, StateType } from '../../types';
 import {
+  SET_EDITING_EVENT,
   CREATE_EVENT_START,
   CREATE_EVENT_FAILURE,
   CREATE_EVENT_SUCCESS,
@@ -19,6 +20,11 @@ import {
   DELETE_EVENT_FAILURE,
   DELETE_EVENT_SUCCESS,
 } from './types';
+
+const setEditingEvent = (payload: { isEditingEvent: boolean }) => ({
+  type: SET_EDITING_EVENT,
+  payload,
+});
 
 const createEventStart = (payload: { isCreatingEvent: boolean }) => ({
   type: CREATE_EVENT_START,
@@ -86,10 +92,14 @@ const deleteEventFailure = (payload: { isDeletingEvent: boolean }) => ({
 
 // Action Creators
 // TODO: Improve Error Reporting to show the correct errors in the notification banner
-export function doCreateEvent(eventDetails: EventDetailsType): ThunkAction<void, StateType, unknown, AnyAction> {
-  return async (dispatch, getState) => {
-    const { accessToken } = getState().auth;
+export function doSetEditingEvent(isEditingEvent: boolean): ThunkAction<void, StateType, unknown, AnyAction> {
+  return async (dispatch) => {
+    dispatch(setEditingEvent({ isEditingEvent }));
+  };
+}
 
+export function doCreateEvent(eventDetails: EventDetailsType): ThunkAction<void, StateType, unknown, AnyAction> {
+  return async (dispatch) => {
     toast.success('Creating event', {
       toastId: 'creatingEvent',
       autoClose: false,
@@ -102,7 +112,7 @@ export function doCreateEvent(eventDetails: EventDetailsType): ThunkAction<void,
     );
 
     return utils
-      .createEvent(eventDetails, accessToken)
+      .createEvent(eventDetails)
       .then((response) => {
         dispatch(
           createEventSuccess({
@@ -130,9 +140,7 @@ export function doUpdateEvent(
   id: string,
   eventDetails: EventDetailsType
 ): ThunkAction<void, StateType, unknown, AnyAction> {
-  return async (dispatch, getState) => {
-    const { accessToken } = getState().auth;
-
+  return async (dispatch) => {
     toast.success('Updating event', {
       toastId: 'updatingEvent',
       autoClose: false,
@@ -145,7 +153,7 @@ export function doUpdateEvent(
     );
 
     return utils
-      .updateEvent(id, eventDetails, accessToken)
+      .updateEvent(id, eventDetails)
       .then((response) => {
         dispatch(
           updateEventSuccess({
@@ -170,9 +178,7 @@ export function doUpdateEvent(
 }
 
 export function doSetAttendeeStatus(id: string, status: boolean): ThunkAction<void, StateType, unknown, AnyAction> {
-  return async (dispatch, getState) => {
-    const { accessToken } = getState().auth;
-
+  return async (dispatch) => {
     toast.success('Updating event status...', {
       toastId: 'updatingEventStatus',
       autoClose: false,
@@ -185,7 +191,7 @@ export function doSetAttendeeStatus(id: string, status: boolean): ThunkAction<vo
     );
 
     return utils
-      .setAttendeeStatus(id, status, accessToken)
+      .setAttendeeStatus(id, status)
       .then((response) => {
         dispatch(
           setAttendeeStatusSuccess({
@@ -211,9 +217,7 @@ export function doSetAttendeeStatus(id: string, status: boolean): ThunkAction<vo
 }
 
 export function doDeleteEvent(id: string): ThunkAction<void, StateType, unknown, AnyAction> {
-  return async (dispatch, getState) => {
-    const { accessToken } = getState().auth;
-
+  return async (dispatch) => {
     toast.success('Deleting Event...', {
       toastId: 'deletingEvent',
       autoClose: false,
@@ -226,7 +230,7 @@ export function doDeleteEvent(id: string): ThunkAction<void, StateType, unknown,
     );
 
     return utils
-      .deleteEvent(id, accessToken)
+      .deleteEvent(id)
       .then((response) => {
         const { deleted } = response;
 

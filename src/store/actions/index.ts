@@ -1,4 +1,4 @@
-import { doCreateEvent, doDeleteEvent, doUpdateEvent, doSetAttendeeStatus } from './event';
+import { doCreateEvent, doDeleteEvent, doUpdateEvent, doSetAttendeeStatus, doSetEditingEvent } from './event';
 import { doSignupUser, doLoginUser, doLogoutUser, doRefreshToken } from './auth';
 import { doFetchAllEvents, doFetchEvent } from './fetch';
 
@@ -13,4 +13,5 @@ export default {
   doRefreshToken,
   doFetchAllEvents,
   doFetchEvent,
+  doSetEditingEvent,
 };

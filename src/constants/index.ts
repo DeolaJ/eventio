@@ -39,6 +39,7 @@ export const initialState = {
     isFetchingEvents: false,
     isCreatingEvent: false,
     isUpdatingEvent: false,
+    isEditingEvent: false,
     isUpdatingAttendeeStatus: false,
     isDeletingEvent: false,
   },

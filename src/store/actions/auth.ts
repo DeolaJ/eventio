@@ -24,7 +24,7 @@ const refreshTokenStart = () => ({
   type: REFRESH_TOKEN_START,
 });
 
-const refreshTokenSuccess = (payload: { user: UserType; accessToken: string }) => ({
+const refreshTokenSuccess = (payload: { user: UserType }) => ({
   type: REFRESH_TOKEN_SUCCESS,
   payload,
 });
@@ -60,8 +60,6 @@ const loginUserStart = (payload: { isLoggingIn: boolean }) => ({
 
 export const loginUserSuccess = (payload: {
   isLoggingIn: boolean;
-  accessToken: string;
-  refreshToken: string;
   user: UserType;
   isAuthenticated: boolean;
 }): AnyAction => ({
@@ -82,8 +80,6 @@ const logoutUserStart = (payload: { isLoggingOut: boolean }) => ({
 export const logoutUserSuccess = (payload: {
   isLoggingOut: boolean;
   isAuthenticated: boolean;
-  accessToken: string;
-  refreshToken: string;
   user: UserType;
 }): AnyAction => ({
   type: LOGOUT_USER_SUCCESS,
@@ -103,12 +99,11 @@ export function doRefreshToken(token: string): ThunkAction<void, StateType, unkn
     return utils
       .refreshToken(token)
       .then((response) => {
-        const { user, accessToken } = response;
+        const { user } = response;
 
         dispatch(
           refreshTokenSuccess({
             user,
-            accessToken,
           })
         );
       })
@@ -180,19 +175,17 @@ export function doLoginUser(loginDetails: LoginDetailsType): ThunkAction<void, S
     return utils
       .loginUser(loginDetails)
       .then((response) => {
-        const { user, accessToken, refreshToken } = response;
+        const { user } = response;
 
         dispatch(
           loginUserSuccess({
             user,
             isLoggingIn: false,
-            accessToken,
-            refreshToken,
             isAuthenticated: true,
           })
         );
 
-        utils.setUserDetails(user, accessToken);
+        utils.setUserDetails(user);
 
         toast.dismiss('loggingIn');
         toast.success('Successfully Logged In');
@@ -230,8 +223,6 @@ export function doLogoutUser(): ThunkAction<void, StateType, unknown, AnyAction>
           logoutUserSuccess({
             isLoggingOut: false,
             isAuthenticated: false,
-            refreshToken: '',
-            accessToken: '',
             user: {
               id: '',
               firstName: '',

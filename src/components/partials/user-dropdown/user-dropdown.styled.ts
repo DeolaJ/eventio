@@ -1,13 +1,17 @@
 import styled from 'styled-components';
 
 export const Gravatar = styled.p`
-  height: 2.5rem;
-  width: 2.5rem;
+  height: 40px;
+  width: 40px;
   background: var(--color-grey);
   color: var(--color-grey-dark);
   font-weight: 500;
+  border-radius: 50%;
   font-size: 0.875rem;
-  line-height: 0.875rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 11px;
 `;
 
 export const UserDropdownButton = styled.button`
@@ -35,26 +39,27 @@ export const LogoutButton = styled.button`
   }
 `;
 
-export const UserDropdownContainer = styled.p`
+export const UserDropdownContainer = styled.div`
   position: relative;
-  height: 2.5rem;
+
+  p {
+    margin: 0;
+  }
 `;
 
 export const UserDropdownContent = styled.ul`
   z-index: 12;
-  display: flex;
-  left: 0;
+  right: -18px;
   transition: all 0.3s;
-  width: 5.5rem;
+  width: 162px;
   position: absolute;
   background: white;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.198087);
   border-radius: 14px;
-  bottom: -17px;
+  top: calc(100% + 13px);
   list-style-type: none;
   margin: 0;
-  padding: 0;
-  flex-direction: column;
+  padding: 1rem 0;
 
   &::after {
     position: absolute;
@@ -62,19 +67,23 @@ export const UserDropdownContent = styled.ul`
     height: 0;
     content: '';
     border-style: solid;
-    border-width: 0.75rem;
+    border-width: 9px;
     border-color: white transparent transparent white;
-    transform: rotate(90deg);
-    top: 0;
-    right: 1rem;
+    transform: rotate(45deg);
+    top: -8px;
+    right: 20px;
     transition: all 0.2s;
     -webkit-transition: all 0.2s;
-    border-radius: 0.25rem 0 0 0;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.198087);
+    border-radius: 4px 0 0 0;
+    box-shadow: -9px -4px 14px rgba(0, 0, 0, 0.11);
   }
 
   li {
-    padding: 1rem 2rem;
+    padding: 0 1rem;
+  }
+
+  li::before {
+    content: '';
   }
 
   li > * {
@@ -82,18 +91,32 @@ export const UserDropdownContent = styled.ul`
     color: var(--color-grey-dark);
     font-size: 0.875rem;
     line-height: 1.5rem;
+    display: flex;
+  }
+
+  li + li {
+    margin-top: 0.5rem;
   }
 
   li > *:hover {
     color: var(--color-secondary);
   }
+
+  button {
+    padding-left: 0;
+  }
 `;
 
 export const UserName = styled.span`
+  display: none;
   font-weight: 500;
   font-size: 0.875rem;
   line-height: 1.5rem;
   color: var(--color-grey-dark);
+
+  @media (min-width: 768px) {
+    display: block;
+  }
 `;
 
 export default {

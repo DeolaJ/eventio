@@ -28,12 +28,15 @@ describe('Event Action Reducers', () => {
         createdAt: '',
         updatedAt: '',
       },
-      isFetchingEvent: false,
-      isFetchingEvents: false,
+      isFetchingEvent: true,
+      isFetchingEvents: true,
       isCreatingEvent: false,
       isUpdatingEvent: false,
       isEditingEvent: false,
-      isUpdatingAttendeeStatus: false,
+      isUpdatingAttendeeStatus: {
+        loading: false,
+        eventId: '',
+      },
       isDeletingEvent: false,
     });
   });
@@ -121,12 +124,15 @@ describe('Event Action Reducers', () => {
         createdAt: '',
         updatedAt: '',
       },
-      isFetchingEvent: false,
-      isFetchingEvents: false,
+      isFetchingEvent: true,
+      isFetchingEvents: true,
       isCreatingEvent: false,
       isUpdatingEvent: false,
       isEditingEvent: false,
-      isUpdatingAttendeeStatus: false,
+      isUpdatingAttendeeStatus: {
+        loading: false,
+        eventId: '',
+      },
       isDeletingEvent: false,
     });
   });
@@ -196,7 +202,10 @@ describe('Event Action Reducers', () => {
           isCreatingEvent: false,
           isUpdatingEvent: true,
           isEditingEvent: false,
-          isUpdatingAttendeeStatus: false,
+          isUpdatingAttendeeStatus: {
+            loading: false,
+            eventId: '',
+          },
           isDeletingEvent: false,
         },
         updateEventSuccess({
@@ -292,7 +301,10 @@ describe('Event Action Reducers', () => {
       isCreatingEvent: false,
       isUpdatingEvent: false,
       isEditingEvent: false,
-      isUpdatingAttendeeStatus: false,
+      isUpdatingAttendeeStatus: {
+        loading: false,
+        eventId: '',
+      },
       isDeletingEvent: false,
     });
   });
@@ -344,11 +356,17 @@ describe('Event Action Reducers', () => {
           isCreatingEvent: false,
           isUpdatingEvent: false,
           isEditingEvent: false,
-          isUpdatingAttendeeStatus: true,
+          isUpdatingAttendeeStatus: {
+            loading: true,
+            eventId: '58493db9691ecc0d3da51bfd',
+          },
           isDeletingEvent: false,
         },
         setAttendeeStatusSuccess({
-          isUpdatingAttendeeStatus: false,
+          isUpdatingAttendeeStatus: {
+            loading: false,
+            eventId: '',
+          },
           eventId: '58493db9691ecc0d3da51bfd',
           event: {
             id: '58493db9691ecc0d3da51bfd',
@@ -441,7 +459,10 @@ describe('Event Action Reducers', () => {
       isCreatingEvent: false,
       isUpdatingEvent: false,
       isEditingEvent: false,
-      isUpdatingAttendeeStatus: false,
+      isUpdatingAttendeeStatus: {
+        loading: false,
+        eventId: '',
+      },
       isDeletingEvent: false,
     });
   });
@@ -511,7 +532,10 @@ describe('Event Action Reducers', () => {
           isCreatingEvent: false,
           isUpdatingEvent: false,
           isEditingEvent: false,
-          isUpdatingAttendeeStatus: false,
+          isUpdatingAttendeeStatus: {
+            loading: false,
+            eventId: '',
+          },
           isDeletingEvent: true,
         },
         deleteEventSuccess({
@@ -544,7 +568,10 @@ describe('Event Action Reducers', () => {
       isCreatingEvent: false,
       isUpdatingEvent: false,
       isEditingEvent: false,
-      isUpdatingAttendeeStatus: false,
+      isUpdatingAttendeeStatus: {
+        loading: false,
+        eventId: '',
+      },
       isDeletingEvent: false,
     });
   });

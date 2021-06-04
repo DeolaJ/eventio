@@ -3,8 +3,14 @@ import styled from 'styled-components';
 import BaseNav from './base';
 
 export const AuthNavContainer = styled(BaseNav)`
-  svg {
-    fill: white;
+  .auth-switch {
+    display: none;
+  }
+
+  @media (min-width: 768px) {
+    .auth-switch {
+      display: block;
+    }
   }
 `;
 

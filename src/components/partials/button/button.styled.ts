@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const ButtonContainer = styled.button`
   text-transform: uppercase;
-  border-radius: 0.25rem;
+  border-radius: 4px;
   letter-spacing: 1px;
   font-weight: 600;
   border: none;
@@ -13,13 +13,21 @@ export const ButtonContainer = styled.button`
   color: white;
 
   &.d-sm {
-    width: 6.25rem;
-    height: 2rem;
+    width: 100px;
+    height: 32px;
+
+    svg {
+      height: 14px;
+    }
   }
 
   &.d-lg {
-    width: 15rem;
+    width: 240px;
     height: 57px;
+
+    svg {
+      height: 32px;
+    }
   }
 
   &.fs-sm {

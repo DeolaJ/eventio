@@ -2,7 +2,9 @@
 import { toast } from 'react-toastify';
 import { AnyAction } from 'redux';
 import { ThunkAction } from 'redux-thunk';
+import { RouteComponentProps } from 'react-router-dom';
 
+import { doSetError } from './error';
 import utils from '../../utils';
 import { EventType, EventDetailsType, StateType } from '../../types';
 import {
@@ -36,7 +38,7 @@ export const createEventSuccess = (payload: { isCreatingEvent: boolean; event: E
   payload,
 });
 
-const createEventFailure = (payload: { isCreatingEvent: boolean; error: string }) => ({
+const createEventFailure = (payload: { isCreatingEvent: boolean }) => ({
   type: CREATE_EVENT_FAILURE,
   payload,
 });
@@ -51,18 +53,18 @@ export const updateEventSuccess = (payload: { isUpdatingEvent: boolean; event: E
   payload,
 });
 
-const updateEventFailure = (payload: { isUpdatingEvent: boolean; error: string }) => ({
+const updateEventFailure = (payload: { isUpdatingEvent: boolean }) => ({
   type: UPDATE_EVENT_FAILURE,
   payload,
 });
 
-const setAttendeeStatusStart = (payload: { isUpdatingAttendeeStatus: boolean }) => ({
+const setAttendeeStatusStart = (payload: { isUpdatingAttendeeStatus: { loading: boolean; eventId: string } }) => ({
   type: SET_ATTENDEE_STATUS_START,
   payload,
 });
 
 export const setAttendeeStatusSuccess = (payload: {
-  isUpdatingAttendeeStatus: boolean;
+  isUpdatingAttendeeStatus: { loading: boolean; eventId: string };
   eventId: string;
   event: EventType;
 }): AnyAction => ({
@@ -70,7 +72,7 @@ export const setAttendeeStatusSuccess = (payload: {
   payload,
 });
 
-const setAttendeeStatusFailure = (payload: { isUpdatingAttendeeStatus: boolean; error: string }) => ({
+const setAttendeeStatusFailure = (payload: { isUpdatingAttendeeStatus: { loading: boolean; eventId: string } }) => ({
   type: SET_ATTENDEE_STATUS_FAILURE,
   payload,
 });
@@ -98,9 +100,12 @@ export function doSetEditingEvent(isEditingEvent: boolean): ThunkAction<void, St
   };
 }
 
-export function doCreateEvent(eventDetails: EventDetailsType): ThunkAction<void, StateType, unknown, AnyAction> {
+export function doCreateEvent(
+  eventDetails: EventDetailsType,
+  history: RouteComponentProps['history']
+): ThunkAction<void, StateType, unknown, AnyAction> {
   return async (dispatch) => {
-    toast.success('Creating event', {
+    const toastId = toast.success('Creating event', {
       toastId: 'creatingEvent',
       autoClose: false,
     });
@@ -120,18 +125,29 @@ export function doCreateEvent(eventDetails: EventDetailsType): ThunkAction<void,
             event: response,
           })
         );
-        toast.dismiss('creatingEvent');
-        toast.success('Event Created');
+        toast.update(toastId, {
+          render: 'Event Created',
+          type: toast.TYPE.SUCCESS,
+          autoClose: 2500,
+        });
+        toast.dismiss(toastId);
+
+        dispatch(doSetEditingEvent(false));
+        history.push(`/event/${response.id}`);
       })
       .catch((error) => {
         dispatch(
           createEventFailure({
-            error: error.message,
             isCreatingEvent: false,
           })
         );
-        toast.dismiss('creatingEvent');
-        toast.error(`An error occurred. Error: ${error.message}. Please retry`);
+        dispatch(doSetError(error));
+        toast.update(toastId, {
+          render: 'An error occurred. Please retry',
+          type: toast.TYPE.ERROR,
+          autoClose: 2500,
+        });
+        toast.dismiss(toastId);
       });
   };
 }
@@ -141,7 +157,7 @@ export function doUpdateEvent(
   eventDetails: EventDetailsType
 ): ThunkAction<void, StateType, unknown, AnyAction> {
   return async (dispatch) => {
-    toast.success('Updating event', {
+    const toastId = toast.success('Updating event', {
       toastId: 'updatingEvent',
       autoClose: false,
     });
@@ -161,32 +177,41 @@ export function doUpdateEvent(
             event: response,
           })
         );
-        toast.dismiss('updatingEvent');
-        toast.success('Event Updated');
+        toast.update(toastId, {
+          render: 'Event Updated',
+          type: toast.TYPE.SUCCESS,
+          autoClose: 2500,
+        });
+        toast.dismiss(toastId);
+        dispatch(doSetEditingEvent(false));
       })
       .catch((error) => {
         dispatch(
           updateEventFailure({
             isUpdatingEvent: false,
-            error: error.message,
           })
         );
-        toast.dismiss('updatingEvent');
-        toast.error(`An error occurred. Error: ${error.message}. Please retry`);
+        dispatch(doSetError(error));
+        toast.update(toastId, {
+          render: 'An error occurred. Please retry',
+          type: toast.TYPE.ERROR,
+          autoClose: 2500,
+        });
+        toast.dismiss(toastId);
       });
   };
 }
 
 export function doSetAttendeeStatus(id: string, status: boolean): ThunkAction<void, StateType, unknown, AnyAction> {
   return async (dispatch) => {
-    toast.success('Updating event status...', {
+    const toastId = toast.success('Updating event status...', {
       toastId: 'updatingEventStatus',
       autoClose: false,
     });
 
     dispatch(
       setAttendeeStatusStart({
-        isUpdatingAttendeeStatus: true,
+        isUpdatingAttendeeStatus: { loading: true, eventId: id },
       })
     );
 
@@ -197,28 +222,38 @@ export function doSetAttendeeStatus(id: string, status: boolean): ThunkAction<vo
           setAttendeeStatusSuccess({
             eventId: id,
             event: response,
-            isUpdatingAttendeeStatus: false,
+            isUpdatingAttendeeStatus: { loading: false, eventId: '' },
           })
         );
-        toast.dismiss('updatingEventStatus');
-        toast.success('Event Status Updated');
+        toast.update(toastId, {
+          render: 'Event Status Updated',
+          type: toast.TYPE.SUCCESS,
+          autoClose: 2500,
+        });
+        toast.dismiss(toastId);
       })
-      .catch((error) => {
+      .catch(() => {
         dispatch(
           setAttendeeStatusFailure({
-            isUpdatingAttendeeStatus: false,
-            error: error.message,
+            isUpdatingAttendeeStatus: { loading: false, eventId: '' },
           })
         );
-        toast.dismiss('updatingEventStatus');
-        toast.error(`An error occurred. Error: ${error.message}. Please retry`);
+        toast.update(toastId, {
+          render: 'An error occurred. Please retry',
+          type: toast.TYPE.ERROR,
+          autoClose: 2500,
+        });
+        toast.dismiss(toastId);
       });
   };
 }
 
-export function doDeleteEvent(id: string): ThunkAction<void, StateType, unknown, AnyAction> {
+export function doDeleteEvent(
+  id: string,
+  history: RouteComponentProps['history']
+): ThunkAction<void, StateType, unknown, AnyAction> {
   return async (dispatch) => {
-    toast.success('Deleting Event...', {
+    const toastId = toast.success('Deleting Event...', {
       toastId: 'deletingEvent',
       autoClose: false,
     });
@@ -234,7 +269,7 @@ export function doDeleteEvent(id: string): ThunkAction<void, StateType, unknown,
       .then((response) => {
         const { deleted } = response;
 
-        toast.dismiss('deletingEvent');
+        toast.dismiss();
 
         if (deleted) {
           dispatch(
@@ -243,24 +278,39 @@ export function doDeleteEvent(id: string): ThunkAction<void, StateType, unknown,
               isDeletingEvent: false,
             })
           );
-          toast.success('Event Deleted');
+          toast.update(toastId, {
+            render: 'Event Deleted',
+            type: toast.TYPE.SUCCESS,
+            autoClose: 2500,
+          });
+          toast.dismiss(toastId);
+          history.push('/dashboard');
         } else {
           dispatch(
             deleteEventFailure({
               isDeletingEvent: false,
             })
           );
-          toast.error(`An error occurred. Please retry`);
+          toast.update(toastId, {
+            render: 'An error occurred. Please retry',
+            type: toast.TYPE.ERROR,
+            autoClose: 2500,
+          });
+          toast.dismiss(toastId);
         }
       })
-      .catch((error) => {
+      .catch(() => {
         dispatch(
           deleteEventFailure({
             isDeletingEvent: false,
           })
         );
-        toast.dismiss('deletingEvent');
-        toast.error(`An error occurred. Error: ${error.message}. Please retry`);
+        toast.update(toastId, {
+          render: 'An error occurred. Please retry',
+          type: toast.TYPE.ERROR,
+          autoClose: 2500,
+        });
+        toast.dismiss(toastId);
       });
   };
 }

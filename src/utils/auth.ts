@@ -11,6 +11,30 @@ export function setUserDetails(user: UserType): void {
   );
 }
 
+export function loadUserDetails(): UserType {
+  const emptyUser = {
+    id: '',
+    firstName: '',
+    lastName: '',
+    email: '',
+    createdAt: '',
+    updatedAt: '',
+  };
+  try {
+    const serializedState = localStorage.getItem('userDetails');
+    if (serializedState === null) {
+      return emptyUser;
+    }
+    return JSON.parse(serializedState);
+  } catch (err) {
+    return emptyUser;
+  }
+}
+
+export function checkAuth(): boolean {
+  return localStorage.getItem('userDetails') !== null;
+}
+
 export async function refreshToken(token: string): Promise<{ user: UserType }> {
   const response = await api.refreshTokenAPI(token);
   return response;

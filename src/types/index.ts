@@ -18,13 +18,21 @@ export type EventState = {
   isCreatingEvent: boolean;
   isUpdatingEvent: boolean;
   isEditingEvent: boolean;
-  isUpdatingAttendeeStatus: boolean;
+  isUpdatingAttendeeStatus: {
+    loading: boolean;
+    eventId: string;
+  };
   isDeletingEvent: boolean;
+};
+
+export type ErrorState = {
+  error: ErrorType;
 };
 
 export type StateType = {
   auth: AuthState;
   event: EventState;
+  formError: ErrorState;
 };
 
 //==============================================================================
@@ -75,6 +83,16 @@ export type EventType = {
   updatedAt: string;
 };
 
+export type ErrorType = {
+  hasError: boolean;
+  errors: {
+    [key: string]: {
+      message: string;
+    };
+  };
+  errorFields: string[];
+};
+
 //==============================================================================
 // General Instances
 //==============================================================================
@@ -84,4 +102,12 @@ export type EventTabValueProps = 'allEvents' | 'futureEvents' | 'pastEvents';
 export type EventTabsProps = {
   text: string;
   value: EventTabValueProps;
+};
+
+export type ActiveFormErrorType = {
+  hasError: boolean;
+  errorMessages: {
+    [key: string]: string;
+  };
+  errorFields: string[];
 };

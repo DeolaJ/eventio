@@ -5,12 +5,13 @@ import reportWebVitals from './reportWebVitals';
 
 import App from './app';
 import configureStore from './store';
-import { initialState } from './constants';
+import { persistedState } from './constants';
 import 'sanitize.css';
 import './index.css';
 
 // Create Redux store
-const store = configureStore(initialState);
+console.log({ persistedState });
+const store = configureStore(persistedState);
 
 ReactDOM.render(
   <React.StrictMode>

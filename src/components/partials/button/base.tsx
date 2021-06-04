@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, ReactNode } from 'react';
 import { ButtonContainer } from './button.styled';
 
 type ButtonTheme = {
@@ -7,8 +7,9 @@ type ButtonTheme = {
 
 type ButtonProps = {
   size: string;
-  text: string;
+  text: string | ReactNode;
   className?: string;
+  type?: 'submit' | 'reset' | 'button';
   onClick?: () => void;
 };
 
@@ -27,10 +28,11 @@ const lineHeight: ButtonTheme = {
   lg: 'lh-lg',
 };
 
-const BaseButton: FC<ButtonProps> = ({ size, text, className, onClick }) => {
+const BaseButton: FC<ButtonProps> = ({ size, text, className, onClick, type }) => {
   return (
     <ButtonContainer
       className={`${dimension[size]} ${fontSize[size]} ${lineHeight[size]} ${className}`}
+      type={type === 'submit' ? 'submit' : 'button'}
       onClick={onClick}>
       {text}
     </ButtonContainer>

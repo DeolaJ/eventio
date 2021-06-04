@@ -10,17 +10,40 @@ export const CardContainer = styled.li`
     margin: 0;
   }
 
+  a {
+    text-decoration: none;
+
+    &:hover h3 {
+      text-decoration: underline;
+    }
+  }
+
   .title {
     font-weight: 400;
     font-size: 1.125rem;
+    overflow: hidden;
+    width: 14rem;
+    white-space: nowrap;
+    text-overflow: ellipsis;
     line-height: 3rem;
     color: var(--color-secondary);
+  }
+
+  .title-button {
+    background: transparent;
+    padding: 0;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    text-align: left;
+    box-shadow: none;
   }
 
   .description {
     font-weight: 400;
     font-size: 1rem;
-    max-width: 240px;
+    overflow: hidden;
+    width: 15rem;
     white-space: nowrap;
     text-overflow: ellipsis;
     line-height: 1.5rem;
@@ -50,7 +73,13 @@ export const CardContainer = styled.li`
   &.list {
     padding: 0 2rem;
     display: flex;
+    align-items: center;
     justify-content: space-between;
+    height: 72px;
+
+    .attendees-container {
+      display: none;
+    }
   }
 
   &.grid {
@@ -71,14 +100,52 @@ export const CardContainer = styled.li`
 
     .description {
       max-width: initial;
-      height: 3rem;
+      height: 48px;
+      width: 100%;
       margin-bottom: 1.5rem;
       white-space: initial;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      display: -webkit-box;
       text-overflow: none;
     }
 
     .attendees-container {
       align-items: flex-end;
+    }
+  }
+
+  @media (max-width: 768px) {
+    &.list {
+      height: auto;
+      display: block;
+      padding: 0 1rem 1rem;
+
+      .title {
+        margin-bottom: 0;
+      }
+
+      .description {
+        margin-top: -0.5rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .owner {
+        display: none;
+      }
+
+      > .attendees,
+      > .created,
+      > button,
+      > .edit-button {
+        display: none;
+      }
+
+      .attendees-container {
+        display: flex;
+        align-items: center;
+      }
     }
   }
 `;

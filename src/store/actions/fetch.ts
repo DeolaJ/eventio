@@ -47,8 +47,7 @@ const fetchAllEventsFailure = (payload: { isFetchingEvents: boolean }) => ({
 // Action Creators
 export function doFetchAllEvents(): ThunkAction<void, StateType, unknown, AnyAction> {
   return async (dispatch) => {
-    toast.success('Loading events...', {
-      toastId: 'loadingEvents',
+    const toastId = toast.success('Loading events...', {
       autoClose: false,
     });
 
@@ -67,25 +66,34 @@ export function doFetchAllEvents(): ThunkAction<void, StateType, unknown, AnyAct
             isFetchingEvents: false,
           })
         );
-        toast.dismiss('loadingEvents');
-        toast.success('Events loaded');
+
+        toast.update(toastId, {
+          render: 'Events Loaded',
+          type: toast.TYPE.SUCCESS,
+          autoClose: 2500,
+        });
+        toast.dismiss(toastId);
       })
-      .catch((error) => {
+      .catch(() => {
         dispatch(
           fetchAllEventsFailure({
             isFetchingEvents: false,
           })
         );
-        toast.dismiss('loadingEvents');
-        toast.error(`Error: ${error.message}. Please reload the page`);
+
+        toast.update(toastId, {
+          render: 'An error occurred. Please reload the page',
+          type: toast.TYPE.ERROR,
+          autoClose: 2500,
+        });
+        toast.dismiss(toastId);
       });
   };
 }
 
 export function doFetchEvent(id: string): ThunkAction<void, StateType, unknown, AnyAction> {
   return async (dispatch) => {
-    toast.success('Loading event...', {
-      toastId: 'loadingEvent',
+    const toastId = toast.success('Loading event...', {
       autoClose: false,
     });
 
@@ -104,17 +112,27 @@ export function doFetchEvent(id: string): ThunkAction<void, StateType, unknown, 
             isFetchingEvent: false,
           })
         );
-        toast.dismiss('loadingEvent');
-        toast.success('Event loaded');
+
+        toast.update(toastId, {
+          render: 'Event Loaded',
+          type: toast.TYPE.SUCCESS,
+          autoClose: 2500,
+        });
+        toast.dismiss(toastId);
       })
-      .catch((error) => {
+      .catch(() => {
         dispatch(
           fetchEventFailure({
             isFetchingEvent: false,
           })
         );
-        toast.dismiss('loadingEvent');
-        toast.error(`Error: ${error.message}. Please reload the page`);
+
+        toast.update(toastId, {
+          render: 'An error occurred. Please reload the page',
+          type: toast.TYPE.ERROR,
+          autoClose: 2500,
+        });
+        toast.dismiss(toastId);
       });
   };
 }

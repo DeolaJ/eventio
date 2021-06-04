@@ -18,7 +18,12 @@ export const selectIsUpdatingEvent = (state: StateType): boolean => state.event.
 
 export const selectIsEditingEvent = (state: StateType): boolean => state.event.isEditingEvent;
 
-export const selectIsUpdatingAttendeeStatus = (state: StateType): boolean => state.event.isUpdatingAttendeeStatus;
+export const selectIsUpdatingAttendeeStatus = (
+  state: StateType
+): {
+  loading: boolean;
+  eventId: string;
+} => state.event.isUpdatingAttendeeStatus;
 
 export const selectIsDeletingEvent = (state: StateType): boolean => state.event.isDeletingEvent;
 

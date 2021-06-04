@@ -44,12 +44,15 @@ export const defaultState: EventState = {
     createdAt: '',
     updatedAt: '',
   },
-  isFetchingEvent: false,
-  isFetchingEvents: false,
+  isFetchingEvent: true,
+  isFetchingEvents: true,
   isCreatingEvent: false,
   isUpdatingEvent: false,
   isEditingEvent: false,
-  isUpdatingAttendeeStatus: false,
+  isUpdatingAttendeeStatus: {
+    loading: false,
+    eventId: '',
+  },
   isDeletingEvent: false,
 };
 
@@ -140,9 +143,12 @@ export default function eventReducer(state = defaultState, action: AnyAction): E
         });
       });
 
-      activeEvent = produce(activeEvent, (draft) => {
-        draft.attendees = event.attendees;
-      });
+      // Only update activeEvent is the user is currently viewing the Event details
+      if (activeEvent.id) {
+        activeEvent = produce(activeEvent, (draft) => {
+          draft.attendees = event.attendees;
+        });
+      }
 
       // TODO: Attend event if the user is not part of the attendees list and Leave if the user is part of the attendees list
 

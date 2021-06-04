@@ -3,6 +3,9 @@ import styled from 'styled-components';
 export const EventsListControlContainer = styled.ul`
   display: flex;
   align-items: center;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
 
   > li + li {
     margin-left: 0.5rem;
@@ -10,8 +13,8 @@ export const EventsListControlContainer = styled.ul`
 `;
 
 export const ControlButton = styled.button`
-  height: 1.5rem;
-  width: 1.5rem;
+  height: 24px;
+  width: 24px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -19,11 +22,11 @@ export const ControlButton = styled.button`
   background: transparent;
   border: none;
 
-  svg {
+  svg path {
     fill: var(--color-secondary-light);
   }
 
-  &.active svg {
+  &.active svg path {
     fill: var(--color-secondary);
   }
 `;

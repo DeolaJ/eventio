@@ -21,6 +21,10 @@ export const EventDetailsCardContainer = styled.section`
     font-weight: 400;
     font-size: 1rem;
     max-width: 420px;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    display: -webkit-box;
     line-height: 1.5rem;
     margin-bottom: 2rem;
     color: var(--color-grey-dark);
@@ -50,6 +54,13 @@ export const EventDetailsCardContainer = styled.section`
 
   .attendees-container {
     align-items: flex-end;
+  }
+
+  form {
+    margin-top: -0.5rem;
+    margin-bottom: 1.5rem;
+    width: 100%;
+    max-width: initial;
   }
 `;
 

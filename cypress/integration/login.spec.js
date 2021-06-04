@@ -6,10 +6,13 @@ describe('Home', () => {
   });
 
   it('Logs user in', () => {
-    // Get Input and type username
+    cy.get('input#email').type('tonystark@strv.com');
+    cy.get('input#password').type('ir0nL0ver');
+
     // Get Password field and type password
-    // Click Login Button
+    cy.get('.login-button').click();
     // Should log user in and redirect to the Dashboard
+    cy.url().should('include', '/dashboard');
   });
 });
 
@@ -19,9 +22,12 @@ describe('Home (Mobile)', { viewportWidth: 360 }, () => {
   });
 
   it('Logs user in', () => {
-    // Get Input and type username
+    cy.get('input#email').type('tonystark@strv.com');
+    cy.get('input#password').type('ir0nL0ver');
+
     // Get Password field and type password
-    // Click Login Button
+    cy.get('.login-button').click();
     // Should log user in and redirect to the Dashboard
+    cy.url().should('include', '/dashboard');
   });
 });

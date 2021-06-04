@@ -150,7 +150,12 @@ const SignupForm: FC = () => {
             <AuthSwitch />
           </div>
 
-          <PrimaryButton text={!IsCreatingAccount ? 'Sign Up' : <Loader light />} size="lg" type="submit" />
+          <PrimaryButton
+            className="signup-button"
+            text={!IsCreatingAccount ? 'Sign Up' : <Loader light />}
+            size="lg"
+            type="submit"
+          />
         </FormContainer>
       )}
     </Formik>

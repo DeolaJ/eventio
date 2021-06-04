@@ -1,6 +1,4 @@
 import { FC, ChangeEvent, useState } from 'react';
-// import { FC, useState, useEffect, useRef, ChangeEvent } from 'react';
-// import debounce from 'lodash/debounce';
 
 import { InputLabel, InputWrapper, InputFieldError } from './input-field.styled';
 
@@ -17,24 +15,6 @@ type InputFieldProps = {
 
 const InputField: FC<InputFieldProps> = ({ label, placeholder, name, type, value, setValue, error, errorMessage }) => {
   const [showPassword, setShowPassword] = useState(false);
-  // const localInputValue = useRef(value);
-
-  // const updateFormValue = useRef(
-  //   debounce((value) => {
-  //     if (localInputValue.current !== value) {
-  //       setValue(value);
-  //     }
-  //   }, 1000)
-  // );
-
-  // useEffect(() => updateFormValue.current(inputValue), [inputValue]);
-
-  // useEffect(() => {
-  //   if (value !== localInputValue.current) {
-  //     localInputValue.current = value;
-  //     setInputValue(value);
-  //   }
-  // }, [value]);
 
   return (
     <>

@@ -91,7 +91,12 @@ const LoginForm: FC = () => {
               <AuthSwitch loginState />
             </div>
 
-            <PrimaryButton text={!isLoggingIn ? 'Sign In' : <Loader light />} size="lg" type="submit" />
+            <PrimaryButton
+              className="login-button"
+              text={!isLoggingIn ? 'Sign In' : <Loader light />}
+              size="lg"
+              type="submit"
+            />
           </article>
         </FormContainer>
       )}

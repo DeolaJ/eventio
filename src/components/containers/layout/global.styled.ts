@@ -17,6 +17,12 @@ const GlobalStyles = createGlobalStyle`
     --color-grey-darker: #7D7878;
     --color-date-text: #CACDD0;
     --color-border-bottom: #DAE1E7;
+
+    font-size: 16px;
+  
+    @media (min-width: 768px) and (max-width: 1439.8px) {
+      font-size: calc((1280 / 1440) * 16px);
+    }
   }
 `;
 

@@ -1,9 +1,9 @@
-import { FC } from 'react';
+import { FC, ReactNode } from 'react';
 import { DangerButtonContainer } from './danger-button.styled';
 
 type ButtonProps = {
   size: string;
-  text: string;
+  text: string | ReactNode;
   className?: string;
   onClick?: () => void;
 };

@@ -18,6 +18,7 @@ import {
   selectEventDetails,
   selectIsEditingEvent,
 } from './event';
+import { selectActiveFormError } from './error';
 
 export default {
   selectIsAuthenticated,
@@ -36,4 +37,5 @@ export default {
   selectEvents,
   selectEventDetails,
   selectIsEditingEvent,
+  selectActiveFormError,
 };

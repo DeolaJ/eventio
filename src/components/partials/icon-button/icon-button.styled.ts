@@ -2,8 +2,8 @@ import styled from 'styled-components';
 
 export const BaseIconButtonContainer = styled.button`
   border-radius: 50%;
-  height: 3.5rem;
-  width: 3.5rem;
+  height: 56px;
+  width: 56px;
   cursor: pointer;
   background: transparent;
   border: none;

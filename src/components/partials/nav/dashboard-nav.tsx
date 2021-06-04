@@ -2,18 +2,19 @@ import { FC } from 'react';
 import { useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
 
-import BaseNav from './base';
-import Logo from '../logo';
-import UserDropdown from '../user-dropdown';
-import IconTextButton from '../icon-text-button';
+import Logo from '../logo/logo';
+import UserDropdown from '../user-dropdown/user-dropdown';
+import IconTextButton from '../icon-text-button/icon-text-button';
 import selectors from '../../../store/selectors';
+
+import { DashboardNavContainer } from './dashboard-nav.styled';
 
 const DashboardNav: FC = () => {
   const location = useLocation();
   const isEditingEvent = useSelector(selectors.selectIsEditingEvent);
 
   return (
-    <BaseNav>
+    <DashboardNavContainer>
       <Logo />
 
       {!isEditingEvent && !location.pathname.includes('dashboard') && (
@@ -32,7 +33,7 @@ const DashboardNav: FC = () => {
       )}
 
       <UserDropdown />
-    </BaseNav>
+    </DashboardNavContainer>
   );
 };
 

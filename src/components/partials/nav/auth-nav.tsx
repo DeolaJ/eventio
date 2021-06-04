@@ -1,7 +1,8 @@
 import { FC } from 'react';
-import BaseNav from './base';
-import Logo from '../logo';
-import AuthSwitch from '../auth-switch';
+import Logo from '../logo/logo';
+import AuthSwitch from '../auth-switch/auth-switch';
+
+import { AuthNavContainer } from './auth-nav.styled';
 
 type AuthNavProps = {
   loginState?: boolean;
@@ -9,10 +10,10 @@ type AuthNavProps = {
 
 const AuthNav: FC<AuthNavProps> = ({ loginState }) => {
   return (
-    <BaseNav>
+    <AuthNavContainer>
       <Logo />
       <AuthSwitch loginState={loginState} />
-    </BaseNav>
+    </AuthNavContainer>
   );
 };
 

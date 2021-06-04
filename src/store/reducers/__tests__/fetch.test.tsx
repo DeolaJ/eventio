@@ -23,12 +23,15 @@ describe('Fetch Event Reducers', () => {
         createdAt: '',
         updatedAt: '',
       },
-      isFetchingEvent: false,
-      isFetchingEvents: false,
+      isFetchingEvent: true,
+      isFetchingEvents: true,
       isCreatingEvent: false,
       isUpdatingEvent: false,
       isEditingEvent: false,
-      isUpdatingAttendeeStatus: false,
+      isUpdatingAttendeeStatus: {
+        loading: false,
+        eventId: '',
+      },
       isDeletingEvent: false,
     });
   });
@@ -118,12 +121,15 @@ describe('Fetch Event Reducers', () => {
         createdAt: '',
         updatedAt: '',
       },
-      isFetchingEvent: false,
+      isFetchingEvent: true,
       isFetchingEvents: false,
       isCreatingEvent: false,
       isUpdatingEvent: false,
       isEditingEvent: false,
-      isUpdatingAttendeeStatus: false,
+      isUpdatingAttendeeStatus: {
+        loading: false,
+        eventId: '',
+      },
       isDeletingEvent: false,
     });
   });
@@ -193,11 +199,14 @@ describe('Fetch Event Reducers', () => {
         updatedAt: '2016-12-08T10:46:33.901Z',
       },
       isFetchingEvent: false,
-      isFetchingEvents: false,
+      isFetchingEvents: true,
       isCreatingEvent: false,
       isUpdatingEvent: false,
       isEditingEvent: false,
-      isUpdatingAttendeeStatus: false,
+      isUpdatingAttendeeStatus: {
+        loading: false,
+        eventId: '',
+      },
       isDeletingEvent: false,
     });
   });

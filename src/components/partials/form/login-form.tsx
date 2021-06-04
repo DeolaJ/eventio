@@ -6,11 +6,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import * as Yup from 'yup';
 
 import actions from '../../../store/actions';
-import InputField from '../input-field';
+import InputField from '../input-field/input-field';
+import Loader from '../loader/loader';
+import AuthSwitch from '../auth-switch/auth-switch';
 import PrimaryButton from '../button/primary-button';
 
-import { LoginFormContainer, LoginInputContainer, LoginFormError } from './login-form.styled';
+import { FormContainer, InputContainer, FormError } from './form.styled';
 import selectors from '../../../store/selectors';
+import utils from '../../../utils';
 
 const LoginSchema = Yup.object().shape({
   email: Yup.string().email('Invalid email').required('Required'),
@@ -23,7 +26,15 @@ const LoginForm: FC = () => {
     password: '',
   };
   const dispatch = useDispatch();
-  const loginErrorMessage = useSelector(selectors.selectLoginError);
+  const loginErrorMessage = useSelector(selectors.selectActiveFormError);
+  const isLoggingIn = useSelector(selectors.selectIsLoggingIn);
+
+  const errorCheck = (key: string, value: string, error: string | undefined) => {
+    if (value) {
+      return loginErrorMessage.errorFields.includes(key) || error !== undefined;
+    }
+    return false;
+  };
 
   return (
     <Formik
@@ -35,44 +46,54 @@ const LoginForm: FC = () => {
         };
         dispatch(actions.doLoginUser(loginDetails));
       }}>
-      {({ isSubmitting, errors, values, handleChange, handleSubmit }) => (
-        <LoginFormContainer
+      {({ errors, values, handleChange, handleSubmit }) => (
+        <FormContainer
           onSubmit={(e) => {
             e.preventDefault();
             handleSubmit();
           }}>
           <h2>Sign in to Eventio.</h2>
-          {loginErrorMessage ? <LoginFormError>{loginErrorMessage}</LoginFormError> : null}
-          <LoginInputContainer>
-            <InputField
-              label="email"
-              placeholder="Email"
-              id="email"
-              name="email"
-              type="email"
-              value={values.email}
-              setValue={handleChange}
-              error={values.email && errors.email}
-              errorColor=""
-            />
-          </LoginInputContainer>
 
-          <LoginInputContainer>
-            <InputField
-              label="password"
-              placeholder="Password"
-              id="password"
-              name="password"
-              type="password"
-              value={values.password}
-              setValue={handleChange}
-              error={values.password && errors.password}
-              errorColor=""
-            />
-          </LoginInputContainer>
+          <p>
+            {!loginErrorMessage.hasError ? (
+              'Enter your details below.'
+            ) : (
+              <FormError>{utils.generateTotalMessage(loginErrorMessage, 'loginDetails')}</FormError>
+            )}
+          </p>
 
-          <PrimaryButton text="Sign In" size="lg" />
-        </LoginFormContainer>
+          <article>
+            <InputContainer>
+              <InputField
+                label="Email"
+                placeholder="Email"
+                name="email"
+                type="email"
+                value={values.email}
+                setValue={handleChange}
+                error={errorCheck('email', values.email, errors.email)}
+              />
+            </InputContainer>
+
+            <InputContainer>
+              <InputField
+                label="Password"
+                placeholder="Password"
+                name="password"
+                type="password"
+                value={values.password}
+                setValue={handleChange}
+                error={errorCheck('password', values.password, errors.password)}
+              />
+            </InputContainer>
+
+            <div className="auth-switch-container">
+              <AuthSwitch loginState />
+            </div>
+
+            <PrimaryButton text={!isLoggingIn ? 'Sign In' : <Loader light />} size="lg" type="submit" />
+          </article>
+        </FormContainer>
       )}
     </Formik>
   );

@@ -1,6 +1,7 @@
 import { FC } from 'react';
 
-import SpacedList from '../../containers/spaced-list';
+import SpacedList from '../../containers/spaced-list/spaced-list';
+import { BaseNavContainer } from './nav.styled';
 
 type BaseNavProps = {
   className?: string;
@@ -8,9 +9,9 @@ type BaseNavProps = {
 
 const BaseNav: FC<BaseNavProps> = ({ className, children }) => {
   return (
-    <nav className={className}>
+    <BaseNavContainer className={className}>
       <SpacedList>{children}</SpacedList>
-    </nav>
+    </BaseNavContainer>
   );
 };
 

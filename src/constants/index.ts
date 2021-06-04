@@ -1,4 +1,7 @@
-export const initialState = {
+import { StateType } from '../types';
+import { loadUserDetails, checkAuth } from '../utils/auth';
+
+export const initialState: StateType = {
   auth: {
     user: {
       id: '',
@@ -8,8 +11,6 @@ export const initialState = {
       createdAt: '',
       updatedAt: '',
     },
-    accessToken: '',
-    refreshToken: '',
     isAuthenticated: false,
     isCreatingAccount: false,
     isLoggingIn: false,
@@ -35,12 +36,58 @@ export const initialState = {
       createdAt: '',
       updatedAt: '',
     },
-    isFetchingEvent: false,
-    isFetchingEvents: false,
+    isFetchingEvent: true,
+    isFetchingEvents: true,
     isCreatingEvent: false,
     isUpdatingEvent: false,
     isEditingEvent: false,
-    isUpdatingAttendeeStatus: false,
+    isUpdatingAttendeeStatus: {
+      loading: false,
+      eventId: '',
+    },
     isDeletingEvent: false,
   },
+  formError: {
+    error: {
+      hasError: false,
+      errors: {},
+      errorFields: [],
+    },
+  },
+};
+
+// Load state from localStorage if it exists
+export const persistedState: StateType = {
+  auth: {
+    ...initialState.auth,
+    ...loadUserDetails(),
+    isAuthenticated: checkAuth(),
+  },
+  event: initialState.event,
+  formError: initialState.formError,
+};
+
+export const UserDetailsObj = {
+  firstName: 'First Name',
+  lastName: 'Last Name',
+  email: 'Email',
+  password: 'Password',
+};
+
+export const LoginDetailsObj = {
+  email: 'Email',
+  password: 'Password',
+};
+
+export const EventDetailsObj = {
+  title: 'Title',
+  description: 'Description',
+  startsAt: 'Date and Time',
+  capacity: 'Capacity',
+};
+
+export const errorMessageObj = {
+  userDetails: UserDetailsObj,
+  eventDetails: EventDetailsObj,
+  loginDetails: LoginDetailsObj,
 };

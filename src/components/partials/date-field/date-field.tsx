@@ -1,6 +1,4 @@
 import { FC } from 'react';
-// import { FC, useState, useEffect, useRef } from 'react';
-// import isEqual from 'lodash/isEqual';
 import { useFormikContext } from 'formik';
 import TimePicker from 'react-time-picker';
 import DatePicker from 'react-date-picker';
@@ -12,34 +10,12 @@ type DateFieldProps = {
   name: string;
   type: string;
   value: Date | string;
-  // setValue: (event: Date | TimePickerValue) => void;
   error: boolean;
   errorMessage?: string;
 };
 
-// type DatetimeProps = {
-//   _d: Date;
-// };
-
 const DateField: FC<DateFieldProps> = ({ label, name, type, value, error, errorMessage }) => {
   const { setFieldValue } = useFormikContext();
-  // const [dateValue, setDateValue] = useState(value);
-
-  // const updateFormValue = useRef((newValue: DatetimeProps) => {
-  //   setValue(newValue._d);
-  // });
-
-  // const updateLocalValue = (localValue: DatetimeProps) => {
-  //   if (isEqual(localValue._d, dateValue)) {
-  //     return;
-  //   }
-  //   setDateValue(localValue._d);
-  //   updateFormValue.current(localValue);
-  // };
-
-  // useEffect(() => {
-  //   setDateValue(value);
-  // }, [value]);
 
   return (
     <>

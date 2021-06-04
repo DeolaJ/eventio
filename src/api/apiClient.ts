@@ -1,4 +1,4 @@
-import axios, { AxiosResponse, AxiosPromise } from 'axios';
+import axios, { AxiosResponse, AxiosPromise, AxiosInstance } from 'axios';
 import { getFromLocalStorage, storeStringInLocalStorage } from '../utils/helpers';
 
 const BASE_URL = 'https://testproject-api-v2.strv.com';
@@ -21,21 +21,19 @@ axiosClient.interceptors.response.use(
     console.log({ error });
     const refreshToken = getFromLocalStorage('refreshToken');
 
-    if (
-      refreshToken &&
-      error.response.status === 401 &&
-      !originalRequest._retry &&
-      error.response.data.error === 'User.NotAuthenticated'
-    ) {
+    if (refreshToken && (error.response.status === 401 || error.response.status === 403) && !originalRequest._retry) {
       originalRequest._retry = true;
+
       return axiosClient.post(`/auth/native`, { refreshToken: refreshToken }).then((response: AxiosResponse):
-        | AxiosPromise<any>
+        | AxiosPromise<AxiosInstance>
         | undefined => {
         if (response.status === 200) {
           storeStringInLocalStorage('accessToken', response.headers['authorization']);
           console.log('Access token refreshed!');
+
+          return axiosClient(originalRequest);
         }
-        return axiosClient(originalRequest);
+        return Promise.reject(error);
       });
     }
     return Promise.reject(error);

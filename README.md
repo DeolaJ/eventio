@@ -41,3 +41,8 @@ To run tests
     yarn test-end
 
 Then select the test to run in the Cypress test runner.
+
+## Comments
+
+- I was not able to write as much tests as I wanted because of the time constraints
+- I filled in some grey areas in the user journey based on assumptions. These include side effects when a user performs event actions
